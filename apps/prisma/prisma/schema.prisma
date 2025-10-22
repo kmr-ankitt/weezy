@@ -13,3 +13,29 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Workflow {
+  id         String      @id @default(uuid())
+  name       String
+  definition Json
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  executions Execution[]
+}
+
+model Execution {
+  id         String          @id @default(uuid())
+  workflowId String
+  status     ExecutionStatus
+  startedAt  DateTime?
+  endedAt    DateTime?
+  result     Json?
+  workflow   Workflow        @relation(fields: [workflowId], references: [id])
+}
+
+enum ExecutionStatus {
+  pending
+  running
+  success
+  failed
+}
