@@ -1,19 +1,22 @@
 {
-  "name": "@weezy/api",
+  "name": "@weezy/prisma",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "tsx app.ts"
+    "dev": "pnpm docker && tsx app.ts ",
+    "docker": "tsx scripts/start-docker.ts",
+    "dev:no-docker": "tsx app.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^24.9.1",
+    "prisma": "^6.18.0",
     "tsx": "^4.20.6"
   },
   "dependencies": {
+    "@prisma/client": "^6.18.0",
     "dotenv": "^17.2.3"
   }
 }
