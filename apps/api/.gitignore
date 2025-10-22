@@ -34,3 +34,5 @@ temp/
 # Test coverage
 coverage/
 .nyc_output/
+
+/generated/prisma
