@@ -4,9 +4,10 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "pnpm docker && tsx app.ts ",
+    "dev": "pnpm docker && tsx app.ts && pnpm generate",
     "docker": "tsx scripts/start-docker.ts",
-    "dev:no-docker": "tsx app.ts"
+    "dev:no-docker": "tsx app.ts",
+    "generate": "prisma generate --schema=./prisma/schema.prisma"
   },
   "keywords": [],
   "author": "",
