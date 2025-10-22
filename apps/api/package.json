@@ -4,12 +4,15 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "tsx app.ts"
+    "dev": "tsx app.ts && tsx scripts/start-docker.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^24.9.1",
     "tsx": "^4.20.6"
+  },
+  "dependencies": {
   }
 }
