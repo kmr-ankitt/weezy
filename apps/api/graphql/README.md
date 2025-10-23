@@ -9,7 +9,6 @@ All operations are performed via queries and mutations using the GraphQL standar
 
 <details>
 <summary><strong>Workflow Module</strong></summary>
-</details>
 
 This module allows managing workflows.
 
