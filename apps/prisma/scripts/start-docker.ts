@@ -5,6 +5,7 @@ function checkCommandExists(command: string): boolean {
     execSync(`${command} --version`, { stdio: "ignore" });
     return true;
   } catch (e) {
+    console.log(e)
     return false;
   }
 }
@@ -26,6 +27,7 @@ try {
       console.log("Starting containers with docker-compose...");
       execSync("docker-compose up -d", { stdio: "inherit" });
     } else {
+      console.log(e)
       throw new Error("Neither 'docker compose' nor 'docker-compose' command is available");
     }
   }
