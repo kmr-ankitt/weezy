@@ -36,3 +36,9 @@ export type DeleteWorkflowResult = {
   id?: string;
   error?: string;
 };
+
+export type GetWorkflowByIdResult = {
+  success: boolean;
+  workflow?: WorkflowType;
+  error?: string;
+};

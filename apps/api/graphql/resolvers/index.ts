@@ -1,7 +1,8 @@
-import { CreateWorkflowResult, NewWorkflowInput, WorkflowType, UpdateWorkflowInput, UpdateWorkflowResult, DeleteWorkflowResult } from "../../types/workflow.types";
+import { CreateWorkflowResult, NewWorkflowInput, WorkflowType, UpdateWorkflowInput, UpdateWorkflowResult, DeleteWorkflowResult, GetWorkflowByIdResult } from "../../types/workflow.types";
 import createWorkflow from "./workflow/create-workflow";
 import deleteWorkflow from "./workflow/delete-workflow";
 import getWorkflow from "./workflow/get-workflow";
+import getWorkflowById from "./workflow/get-workflow-by-id";
 import updateWorkflow from "./workflow/update-workflow";
 
 export const rootResolver = {
@@ -20,5 +21,10 @@ export const rootResolver = {
   
   deleteWorkflow: async ({ id }: { id: string }): Promise<DeleteWorkflowResult> => {
     return await deleteWorkflow(id);
+  },
+  
+  workflowById: async ({ id }: { id: string }): Promise<GetWorkflowByIdResult> => {
+    const workflow = await getWorkflowById(id);
+    return workflow;
   }
 }

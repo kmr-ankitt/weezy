@@ -1,11 +1,12 @@
 import { buildSchema } from "graphql";
 
 const schema = buildSchema(`
-  scalar  Date 
+  scalar  Date
   scalar  JSON
 
   type Query {
     workflow: [Workflow]!
+    workflowById(id: String!): WorkflowByIdResult!
   }
 
   type Mutation{
@@ -32,29 +33,35 @@ const schema = buildSchema(`
     id: String
     error: String
   }
-  
+
   input UpdateWorkflowInput {
-    id: String!, 
+    id: String!,
     name: String
     definition: JSON
   }
-  
+
   type UpdateWorkflowResult {
     success: Boolean!
     id: String
     error: String
   }
-  
+
   input DeleteWorkflowInput {
     id: String!
   }
-  
+
   type DeleteWorkflowResult {
     success: Boolean!
     id: String
     error: String
   }
-  
+
+  type WorkflowByIdResult {
+    success: Boolean!
+    workflow: Workflow
+    error: String
+  }
+
 `);
 
 export default schema;
