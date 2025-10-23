@@ -1,7 +1,8 @@
 import * as dotenv from 'dotenv'
 import { prisma } from './client'
 
-dotenv.config()
+dotenv.config();
+
 
 prisma.$connect().then(() => {
   console.log('Connected to the database successfully.')
