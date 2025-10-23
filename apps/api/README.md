@@ -17,6 +17,7 @@ Populate your `.env` as per `.env.example` file:
 cp .env.example .env
 pnpm install
 ```
+
 ---
 
 ## Development
@@ -26,6 +27,7 @@ Start the development server:
 ```bash
 pnpm dev
 ```
+
 ---
 
 ## More

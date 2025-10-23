@@ -26,7 +26,7 @@ pnpm install
 
 #### Ports
 
-* **Postgres** → `localhost:5432`
-* **Redis** → `localhost:6379`
+- **Postgres** → `localhost:5432`
+- **Redis** → `localhost:6379`
 
 ---

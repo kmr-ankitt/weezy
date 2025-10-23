@@ -1,4 +1,7 @@
-import { InputJsonValue, JsonValue } from "@weezy/prisma/generated/prisma/internal/prismaNamespace";
+import {
+  InputJsonValue,
+  JsonValue,
+} from "@weezy/prisma/generated/prisma/internal/prismaNamespace";
 
 export type WorkflowType = {
   id: string;

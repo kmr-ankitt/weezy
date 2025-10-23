@@ -12,7 +12,7 @@ All operations are performed via queries and mutations using the GraphQL standar
 
 This module allows managing workflows.
 
-### **Inputs
+### \*\*Inputs
 
 #### **WorkflowById**
 
@@ -65,11 +65,11 @@ This module allows managing workflows.
 
 ### **WorkflowByIdResult**
 
-| Field     | Type     |
-| --------- | -------- |
-| `success` | Boolean! |
-| `workflow`| Workflow |
-| `error`   | String   |
+| Field      | Type     |
+| ---------- | -------- |
+| `success`  | Boolean! |
+| `workflow` | Workflow |
+| `error`    | String   |
 
 ---
 
@@ -89,7 +89,7 @@ query {
     updatedAt
   }
 }
-````
+```
 
 Fetch a workflow by ID.
 
@@ -108,6 +108,7 @@ query WorkflowById($id: String!) {
   }
 }
 ```
+
 ---
 
 ### **Mutations**
@@ -164,9 +165,9 @@ mutation DeleteWorkflow($id: String!) {
     "name": "My First Workflow",
     "definition": {
       "steps": [
-        {"id": "1", "action": "start", "next": "2"},
-        {"id": "2", "action": "process", "next": "3"},
-        {"id": "3", "action": "end"}
+        { "id": "1", "action": "start", "next": "2" },
+        { "id": "2", "action": "process", "next": "3" },
+        { "id": "3", "action": "end" }
       ]
     }
   }
