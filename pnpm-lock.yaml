@@ -77,6 +77,12 @@ importers:
         specifier: ^4.20.6
         version: 4.20.6
 
+  apps/workflow:
+    devDependencies:
+      tsx:
+        specifier: ^4.20.6
+        version: 4.20.6
+
   apps/www:
     dependencies:
       '@weezy/ui':
