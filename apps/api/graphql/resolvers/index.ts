@@ -1,19 +1,24 @@
-import { CreateWorkflowResult, NewWorkflowInput, WorkflowType, UpdateWorkflowInput, UpdateWorkflowResult } from "../../types/workflow.types";
+import { CreateWorkflowResult, NewWorkflowInput, WorkflowType, UpdateWorkflowInput, UpdateWorkflowResult, DeleteWorkflowResult } from "../../types/workflow.types";
 import createWorkflow from "./workflow/create-workflow";
+import deleteWorkflow from "./workflow/delete-workflow";
 import getWorkflow from "./workflow/get-workflow";
 import updateWorkflow from "./workflow/update-workflow";
 
 export const rootResolver = {
-  workflow: async () : Promise<WorkflowType[]> => {
+  workflow: async (): Promise<WorkflowType[]> => {
     const workflow = await getWorkflow();
     return workflow;
   },
 
-  createWorkflow: async ({input}: {input: NewWorkflowInput}) : Promise<CreateWorkflowResult> => {
+  createWorkflow: async ({ input }: { input: NewWorkflowInput }): Promise<CreateWorkflowResult> => {
     return await createWorkflow(input);
   },
   
-  updateWorkflow: async ({input} : {input: UpdateWorkflowInput}) : Promise<UpdateWorkflowResult> =>{
+  updateWorkflow: async ({ input }: { input: UpdateWorkflowInput }): Promise<UpdateWorkflowResult> => {
     return await updateWorkflow(input);
+  },
+  
+  deleteWorkflow: async ({ id }: { id: string }): Promise<DeleteWorkflowResult> => {
+    return await deleteWorkflow(id);
   }
-};
+}

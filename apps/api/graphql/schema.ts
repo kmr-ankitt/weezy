@@ -11,6 +11,7 @@ const schema = buildSchema(`
   type Mutation{
     createWorkflow(input: CreateWorkflowInput!): CreateWorkflowResult!
     updateWorkflow(input: UpdateWorkflowInput!): UpdateWorkflowResult!
+    deleteWorkflow(id: String!): DeleteWorkflowResult!
   }
 
   type Workflow {
@@ -39,6 +40,16 @@ const schema = buildSchema(`
   }
   
   type UpdateWorkflowResult {
+    success: Boolean!
+    id: String
+    error: String
+  }
+  
+  input DeleteWorkflowInput {
+    id: String!
+  }
+  
+  type DeleteWorkflowResult {
     success: Boolean!
     id: String
     error: String

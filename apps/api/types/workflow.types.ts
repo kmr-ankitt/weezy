@@ -30,3 +30,9 @@ export type UpdateWorkflowResult = {
   id?: string;
   error?: string;
 };
+
+export type DeleteWorkflowResult = {
+  success: boolean;
+  id?: string;
+  error?: string;
+};
