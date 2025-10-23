@@ -12,7 +12,13 @@ All operations are performed via queries and mutations using the GraphQL standar
 
 This module allows managing workflows.
 
-### **Inputs**
+### **Inputs
+
+#### **WorkflowById**
+
+| Field | Type   | Required |
+| ----- | ------ | -------- |
+| `id`  | String | ✅       |
 
 #### **CreateWorkflowInput**
 
@@ -57,6 +63,14 @@ This module allows managing workflows.
 | `id`      | String   |
 | `error`   | String   |
 
+### **WorkflowByIdResult**
+
+| Field     | Type     |
+| --------- | -------- |
+| `success` | Boolean! |
+| `workflow`| Workflow |
+| `error`   | String   |
+
 ---
 
 ### **Queries**
@@ -77,6 +91,23 @@ query {
 }
 ````
 
+Fetch a workflow by ID.
+
+```graphql
+query WorkflowById($id: String!) {
+  workflowById(id: $id) {
+    success
+    workflow {
+      id
+      name
+      definition
+      createdAt
+      updatedAt
+    }
+    error
+  }
+}
+```
 ---
 
 ### **Mutations**
