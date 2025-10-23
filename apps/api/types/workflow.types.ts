@@ -18,3 +18,15 @@ export type CreateWorkflowResult = {
   id?: string;
   error?: string;
 };
+
+export type UpdateWorkflowInput = {
+  id: string;
+  name?: string;
+  definition?: InputJsonValue;
+};
+
+export type UpdateWorkflowResult = {
+  success: boolean;
+  id?: string;
+  error?: string;
+};
