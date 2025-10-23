@@ -1,3 +1,7 @@
+import { CreateWorkflowResult, NewWorkflowInput, WorkflowType } from "../../types/workflow.types";
+import createWorkflow from "./workflow/create-workflow";
+import getWorkflow from "./workflow/get-workflow";
+
 export const rootResolver = {
   workflow: () => {
     return [
@@ -10,4 +14,8 @@ export const rootResolver = {
       },
     ];
   },
+
+  createWorkflow: async ({input}: {input: NewWorkflowInput}) : Promise<CreateWorkflowResult> => {
+    return await createWorkflow(input);
+  }
 };
