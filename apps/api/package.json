@@ -2,7 +2,7 @@
   "name": "@weezy/api",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "app.ts",
   "scripts": {
     "dev": "tsx app.ts"
   },
@@ -14,7 +14,16 @@
     "tsx": "^4.20.6"
   },
   "dependencies": {
+    "@graphql-tools/schema": "^10.0.25",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
     "@weezy/prisma": "workspace:*",
-    "dotenv": "^17.2.3"
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "graphql": "^16.11.0",
+    "graphql-http": "^1.22.4",
+    "graphql-scalars": "^1.25.0",
+    "ruru": "2.0.0-beta.30"
   }
 }
