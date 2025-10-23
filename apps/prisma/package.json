@@ -7,14 +7,20 @@
     "dev": "pnpm docker && tsx app.ts && pnpm generate",
     "docker": "tsx scripts/start-docker.ts",
     "dev:no-docker": "tsx app.ts",
-    "generate": "prisma generate --schema=./prisma/schema.prisma"
+    "generate": "prisma generate --schema=./prisma/schema.prisma",
+    "lint": "eslint . "
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@weezy/eslint-config": "workspace:*",
+    "@eslint/js": "^9.34.0",
+    "eslint": "^9.38.0",
+    "globals": "^16.3.0",
     "prisma": "^6.18.0",
-    "tsx": "^4.20.6"
+    "tsx": "^4.20.6",
+    "typescript-eslint": "^8.40.0"
   },
   "dependencies": {
     "@prisma/client": "^6.18.0",

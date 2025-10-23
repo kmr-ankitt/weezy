@@ -1,5 +1,5 @@
 import { prisma } from "@weezy/prisma";
-import { CreateWorkflowResult, NewWorkflowInput, WorkflowType } from "../../../types/workflow.types";
+import { CreateWorkflowResult, NewWorkflowInput } from "../../../types/workflow.types";
 
 export default async function createWorkflow(input: NewWorkflowInput) : Promise<CreateWorkflowResult> {
   try {
