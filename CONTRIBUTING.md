@@ -46,7 +46,7 @@ Thank you for your interest in contributing!
 
 | Type     | Prefix      | Example                 |
 | -------- | ----------- | ----------------------- |
-| Feature  | `feature/`  | `feature/dashboard-ui`  |
+| Feature  | `feat/`  | `feature/dashboard-ui`  |
 | Bug Fix  | `bugfix/`   | `bugfix/login-crash`    |
 | Refactor | `refactor/` | `refactor/api-layer`    |
 
