@@ -39,3 +39,4 @@ yarn-error.log*
 
 .vscode/
 ROADMAP.md
+pnpm-lock.yaml
