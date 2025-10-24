@@ -2,7 +2,7 @@
 
 A lightweight, extensible workflow automation system inspired by tools like **n8n** and **Temporal**, designed to run workflows across different nodes.
 
----
+***
 
 ## Overview
 
@@ -15,7 +15,7 @@ This project allows you to:
 
 The goal is to give developers full control while maintaining modular, scalable automation.
 
----
+***
 
 ### Installation and Running
 
@@ -35,4 +35,4 @@ cd weezy
 pnpm dev
 ```
 
----
+***
