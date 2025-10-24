@@ -8,7 +8,7 @@ export type INode = {
 export type IConnection = {
   id: string;
   source: string;
-  target: string;
+  target: string | null;
 };
 
 export type WorkflowSettings = {
