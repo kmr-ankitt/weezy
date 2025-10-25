@@ -1,8 +1,4 @@
-import {
-  IConnection,
-  INode,
-  WorkflowSettings,
-} from "./interfaces/workflow.interface.";
+import { IConnection, INode, WorkflowSettings } from "./interfaces";
 
 type WorkflowParameter = {
   id: string;

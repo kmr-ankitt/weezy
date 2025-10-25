@@ -1,6 +1,6 @@
 import { IConnection } from "../interfaces/workflow.interface.";
 
-export default function getNextNode(
+export function getNextNode(
   currentNodeId: string,
   connections: IConnection[],
 ): string | null {
