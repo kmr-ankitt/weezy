@@ -97,6 +97,12 @@ importers:
         specifier: ^4.20.6
         version: 4.20.6
 
+  apps/nodes:
+    devDependencies:
+      tsx:
+        specifier: ^4.20.6
+        version: 4.20.6
+
   apps/prisma:
     dependencies:
       '@prisma/client':
