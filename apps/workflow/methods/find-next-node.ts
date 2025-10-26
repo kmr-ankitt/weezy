@@ -1,4 +1,4 @@
-import { IConnection } from "../interfaces/workflow.interface.";
+import { IConnection } from "../interfaces/workflow.interface";
 
 export function getNextNode(
   currentNodeId: string,
