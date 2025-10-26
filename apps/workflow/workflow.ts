@@ -1,3 +1,4 @@
+import { ExecutionStatus } from "./execution";
 import { IConnection, INode, WorkflowSettings } from "./interfaces";
 
 type WorkflowParameter = {
@@ -14,6 +15,7 @@ export class Workflow {
   nodes: INode[];
   connections: IConnection[];
   settings: WorkflowSettings;
+  status: ExecutionStatus;
 
   constructor(param: WorkflowParameter) {
     this.id = param.id;
@@ -21,6 +23,7 @@ export class Workflow {
     this.nodes = param.nodes;
     this.connections = param.connections;
     this.settings = param.settings;
+    this.status = "new";
   }
 
   setName(name: string) {
@@ -37,6 +40,10 @@ export class Workflow {
 
   setSettings(settings: WorkflowSettings) {
     this.settings = settings;
+  }
+
+  setStatus(status: ExecutionStatus) {
+    this.status = status;
   }
 
   getNodes(): INode[] {
