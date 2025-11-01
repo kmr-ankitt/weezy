@@ -11,6 +11,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@weezy/workflow": "workspace:*",
+    "@weezy/eslint-config": "workspace:*",
     "tsx": "^4.20.6"
   }
 }
