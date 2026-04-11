@@ -1,16 +1,17 @@
 import { INode } from "@weezy/workflow";
 
 // TODO: Implement actual node execution logic
-export function executeNode(node: INode): {
-  status: "success" | "failed";
-  error?: string;
-} {
-  const status = Math.random() > 0.2 ? "success" : "failed";
-  return {
-    status: status,
-    error:
-      status === "failed"
-        ? "Node execution failed due to some error."
-        : undefined,
-  };
+export async function executeNode(
+  node: INode,
+): Promise<{ status: "success" | "failed"; error?: string }> {
+  try {
+    await new Promise((r) => setTimeout(r, 300));
+
+    return { status: "success" };
+  } catch (err) {
+    return {
+      status: "failed",
+      error: (err as Error).message,
+    };
+  }
 }
