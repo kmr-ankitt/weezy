@@ -9,6 +9,14 @@ type WorkflowParameter = {
   settings: WorkflowSettings;
 };
 
+/**
+ * Represents a workflow as a Directed Acyclic Graph (DAG).
+ *
+ * Each node in the graph represents an individual task, and each directed edge
+ * (connection) represents a dependency — meaning the source task must complete
+ * before the target task can begin.
+ */
+
 export class Workflow {
   id: string;
   name: string;
