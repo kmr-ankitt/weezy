@@ -21,6 +21,8 @@ export async function executeWorkflow(workflow: Workflow) {
 
   workflow.setStatus("running");
 
+  let processedCount = 0;
+
   while (queue.length > 0) {
     const batch = [...queue];
     queue.length = 0;
@@ -39,6 +41,8 @@ export async function executeWorkflow(workflow: Workflow) {
           throw new Error(`Node ${nodeId} execution failed.`);
         }
 
+        processedCount++;
+
         for (const neighbor of adj.get(nodeId) || []) {
           inDegree.set(neighbor, inDegree.get(neighbor)! - 1);
           if (inDegree.get(neighbor) === 0) {
@@ -47,6 +51,11 @@ export async function executeWorkflow(workflow: Workflow) {
         }
       }),
     );
+  }
+
+  if (processedCount !== nodes.length) {
+    workflow.setStatus("error");
+    throw new Error("Cycle detected in workflow graph.");
   }
 
   workflow.setStatus("success");
