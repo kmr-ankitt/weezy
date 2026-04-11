@@ -1,78 +1,53 @@
-import {
-  findDestinationNode,
-  findStartNode,
-  getNextNode,
-  INode,
-  Workflow,
-} from "@weezy/workflow";
+import { Workflow } from "@weezy/workflow";
+import { buildGraph } from "./graph";
 import { executeNode } from "./execute-node";
-import { ExecutionResult } from "./types";
 
 /**
- * Step to execute workflow:
- * 1. Start with root node
- * 2. Execute node
- * 3. Find the next connected node for the current node
- * 4. Execute the next node
- * 5. Repeat until no more connected nodes (i.e., next node id is null) or destination reached
- * 6. If any node fails, stop execution and mark workflow as failed
- * 7. If all nodes execute successfully, mark workflow as success
- */
+ * Executes a workflow by processing its nodes and connections.
+ * Performs topological sort as a batch instead of a single node to allow for parallel execution of independent nodes.
+ * @param workflow - The workflow to be executed, containing nodes and connections.
+ **/
+export async function executeWorkflow(workflow: Workflow) {
+  const { nodes, connections } = workflow;
+  const { inDegree, adj, nodeMap } = buildGraph(nodes, connections);
 
-export function executeWorkflow(
-  workflow: Workflow,
-  startNode?: INode,
-  destinationNode?: INode,
-): ExecutionResult {
+  const queue: string[] = [];
+
+  for (const [nodeId, deg] of inDegree) {
+    if (deg === 0) {
+      queue.push(nodeId);
+    }
+  }
+
   workflow.setStatus("running");
-  if (!startNode) {
-    startNode = findStartNode(workflow.nodes, workflow.connections);
-  }
 
-  if (!destinationNode) {
-    destinationNode = findDestinationNode(workflow.nodes, workflow.connections);
-  }
+  while (queue.length > 0) {
+    const batch = [...queue];
+    queue.length = 0;
 
-  let currentNode = startNode;
-  while (currentNode) {
-    try {
-      const result = executeNode(currentNode);
+    await Promise.all(
+      batch.map(async (nodeId) => {
+        const node = nodeMap.get(nodeId);
+        if (!node) {
+          return;
+        }
 
-      // TODO: Execution result handling
-      if (result.status === "failed") {
-        workflow.setStatus("error");
-        return {
-          status: "error",
-          errors: result.error,
-        };
-      }
-    } catch (err) {
-      workflow.setStatus("crashed");
-      return {
-        status: "crashed",
-        errors: (err as Error).message,
-      };
-    }
+        const res = await executeNode(node);
 
-    if (destinationNode && currentNode.id === destinationNode.id) {
-      break;
-    }
+        if (res.status === "failed") {
+          workflow.setStatus("error");
+          throw new Error(`Node ${nodeId} execution failed.`);
+        }
 
-    const nextNodeId = getNextNode(currentNode.id, workflow.connections);
-    if (nextNodeId === null) {
-      break;
-    }
-
-    const nextNode = workflow.nodes.find((node) => node.id === nextNodeId);
-    if (!nextNode) {
-      break;
-    }
-
-    currentNode = nextNode;
+        for (const neighbor of adj.get(nodeId) || []) {
+          inDegree.set(neighbor, inDegree.get(neighbor)! - 1);
+          if (inDegree.get(neighbor) === 0) {
+            queue.push(neighbor);
+          }
+        }
+      }),
+    );
   }
 
   workflow.setStatus("success");
-  return {
-    status: "success",
-  };
 }
