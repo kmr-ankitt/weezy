@@ -1,12 +1,12 @@
-import { IConnection, INode } from "../interfaces";
+import { IConnection, NodeInterface } from "../interfaces";
 
 /*
  * The start node is the one that is never a target in any connection.
  */
 export function findStartNode(
-  nodes: INode[],
+  nodes: NodeInterface[],
   connections: IConnection[],
-): INode {
+): NodeInterface {
   const targets = new Set(connections.map((c) => c.target));
   const startNode = nodes.find((node) => {
     return !targets.has(node.id);

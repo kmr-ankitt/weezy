@@ -1,6 +1,5 @@
-export type INode = {
+export type NodeInterface = {
   id: string;
-  name: string;
   type: string;
   parameters: Record<string, any>;
 };

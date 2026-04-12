@@ -1,10 +1,10 @@
 import { ExecutionStatus } from "./execution";
-import { IConnection, INode, WorkflowSettings } from "./interfaces";
+import { IConnection, NodeInterface, WorkflowSettings } from "./interfaces";
 
 type WorkflowParameter = {
   id: string;
   name: string;
-  nodes: INode[];
+  nodes: NodeInterface[];
   connections: IConnection[];
   settings: WorkflowSettings;
 };
@@ -20,7 +20,7 @@ type WorkflowParameter = {
 export class Workflow {
   id: string;
   name: string;
-  nodes: INode[];
+  nodes: NodeInterface[];
   connections: IConnection[];
   settings: WorkflowSettings;
   status: ExecutionStatus;
@@ -38,7 +38,7 @@ export class Workflow {
     this.name = name;
   }
 
-  setNodes(node: INode) {
+  setNodes(node: NodeInterface) {
     this.nodes.push(node);
   }
 
@@ -54,12 +54,12 @@ export class Workflow {
     this.status = status;
   }
 
-  getNodes(): INode[] {
+  getNodes(): NodeInterface[] {
     return this.nodes;
   }
 
-  getNode(id: string): INode | undefined {
-    return this.nodes.find((node: INode) => node.id === id);
+  getNode(id: string): NodeInterface | undefined {
+    return this.nodes.find((node: NodeInterface) => node.id === id);
   }
 
   getConnections(): IConnection[] {

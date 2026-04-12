@@ -1,8 +1,8 @@
-import { INode } from "@weezy/workflow";
+import { NodeInterface } from "@weezy/workflow";
 
 // TODO: Implement actual node execution logic
 export async function executeNode(
-  node: INode,
+  node: NodeInterface,
 ): Promise<{ status: "success" | "failed"; error?: string }> {
   try {
     await new Promise((r) => setTimeout(r, 300));

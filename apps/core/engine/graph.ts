@@ -1,4 +1,4 @@
-import { IConnection, INode } from "@weezy/workflow";
+import { IConnection, NodeInterface } from "@weezy/workflow";
 
 /**
  * GraphMeta represents the metadata of a graph structure built from workflow nodes and connections.
@@ -10,7 +10,7 @@ import { IConnection, INode } from "@weezy/workflow";
 export type GraphMeta = {
   inDegree: Map<string, number>;
   adj: Map<string, string[]>;
-  nodeMap: Map<string, INode>;
+  nodeMap: Map<string, NodeInterface>;
 };
 
 /**
@@ -22,12 +22,12 @@ export type GraphMeta = {
  * @returns A GraphMeta object containing the in-degree map, adjacency list, and node map.
  **/
 export function buildGraph(
-  nodes: INode[],
+  nodes: NodeInterface[],
   connections: IConnection[],
 ): GraphMeta {
   const inDegree = new Map<string, number>();
   const adj = new Map<string, string[]>();
-  const nodeMap = new Map<string, INode>();
+  const nodeMap = new Map<string, NodeInterface>();
 
   for (const node of nodes) {
     inDegree.set(node.id, 0);
