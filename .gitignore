@@ -39,3 +39,4 @@ yarn-error.log*
 
 .vscode/
 ROADMAP.md
+/apps/core/test-run.ts

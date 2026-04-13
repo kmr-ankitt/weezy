@@ -35,6 +35,7 @@ export async function executeWorkflow(workflow: Workflow) {
         }
 
         const res = await executeNode(node);
+        console.log(res);
 
         if (res.status === "failed") {
           workflow.setStatus("error");
