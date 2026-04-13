@@ -1,13 +1,17 @@
 import { NodeInterface } from "@weezy/workflow";
+import { getNodeExecutor } from "@weezy/nodes";
 
-// TODO: Implement actual node execution logic
-export async function executeNode(
-  node: NodeInterface,
-): Promise<{ status: "success" | "failed"; error?: string }> {
+export async function executeNode(node: NodeInterface): Promise<{
+  status: "success" | "failed";
+  data?: any;
+  error?: string;
+}> {
   try {
-    await new Promise((r) => setTimeout(r, 300));
+    const executor = getNodeExecutor(node.type);
+    const res = await executor(node);
 
-    return { status: "success" };
+    console.log(`Node ${node.id} (${node.type}) completed`);
+    return { status: "success", data: res };
   } catch (err) {
     return {
       status: "failed",

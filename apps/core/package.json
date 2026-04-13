@@ -5,13 +5,15 @@
   "main": "index.ts",
   "scripts": {
     "dev": "tsx index.ts",
-    "lint": "eslint . "
+    "lint": "eslint . ",
+    "test:workflow" : "tsx test-run.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@weezy/workflow": "workspace:*",
+    "@weezy/nodes": "workspace:*",
     "tsx": "^4.20.6"
   }
 }
