@@ -2,7 +2,7 @@ import { NodeInterface } from "@weezy/workflow";
 
 export type NodeExecutor = (
   node: NodeInterface,
-  inputData?: any,
+  context: Record<string, any>,
 ) => Promise<any>;
 
 export type NodeExecutionResult = {
