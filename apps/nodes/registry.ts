@@ -1,21 +1,34 @@
-import { executeHttpNode, executeDiscordNode } from "./action";
+import {
+  executeHttpNode,
+  executeDiscordNode,
+  executeTelegramNode,
+  executeNotionNode,
+  executeOpenAINode,
+} from "./action";
 import {
   executeLogNode,
   executeStartNode,
   executeDelayNode,
   executeConditionNode,
   executeSwitchNode,
+  executeCronNode,
 } from "./core";
 import { NodeExecutor } from "./types";
 
 export const nodeRegistry: Record<string, NodeExecutor> = {
+  // --- Core ---
   startNode: executeStartNode,
-  http: executeHttpNode,
   log: executeLogNode,
   delay: executeDelayNode,
   condition: executeConditionNode,
   switch: executeSwitchNode,
+  cron: executeCronNode,
+
+  // --- Integrations ---
+  http: executeHttpNode,
   discord: executeDiscordNode,
+  telegram: executeTelegramNode,
+  notion: executeNotionNode,
 };
 
 export function getNodeExecutor(type: string): NodeExecutor {
