@@ -1,6 +1,7 @@
 import { Workflow } from "@weezy/workflow";
 import { buildGraph } from "./graph";
 import { executeNode } from "./execute-node";
+import { ExecutionContext } from "./types";
 
 /**
  * Executes a workflow by processing its nodes and connections.
@@ -12,6 +13,7 @@ export async function executeWorkflow(workflow: Workflow) {
   const { inDegree, adj, nodeMap } = buildGraph(nodes, connections);
 
   const queue: string[] = [];
+  let context: ExecutionContext = {};
 
   for (const [nodeId, deg] of inDegree) {
     if (deg === 0) {
@@ -27,31 +29,42 @@ export async function executeWorkflow(workflow: Workflow) {
     const batch = [...queue];
     queue.length = 0;
 
-    await Promise.all(
+    const results = await Promise.all(
       batch.map(async (nodeId) => {
         const node = nodeMap.get(nodeId);
         if (!node) {
-          return;
+          return null;
         }
 
-        const res = await executeNode(node);
+        const res = await executeNode(node, context);
         console.log(res);
 
         if (res.status === "failed") {
-          workflow.setStatus("error");
           throw new Error(`Node ${nodeId} execution failed.`);
         }
 
-        processedCount++;
-
-        for (const neighbor of adj.get(nodeId) || []) {
-          inDegree.set(neighbor, inDegree.get(neighbor)! - 1);
-          if (inDegree.get(neighbor) === 0) {
-            queue.push(neighbor);
-          }
-        }
+        return {
+          nodeId,
+          data: res.data,
+        };
       }),
     );
+
+    for (const result of results) {
+      if (!result) continue;
+      context[result.nodeId] = result.data;
+    }
+
+    for (const nodeId of batch) {
+      processedCount++;
+
+      for (const neighbor of adj.get(nodeId) || []) {
+        inDegree.set(neighbor, inDegree.get(neighbor)! - 1);
+        if (inDegree.get(neighbor) === 0) {
+          queue.push(neighbor);
+        }
+      }
+    }
   }
 
   if (processedCount !== nodes.length) {
@@ -60,4 +73,5 @@ export async function executeWorkflow(workflow: Workflow) {
   }
 
   workflow.setStatus("success");
+  console.log("Final context: ", context);
 }

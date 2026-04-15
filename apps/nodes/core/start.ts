@@ -3,6 +3,7 @@ import { NodeExecutionResult } from "../types";
 
 export async function executeStartNode(
   node: NodeInterface,
+  context: Record<string, any>,
 ): Promise<NodeExecutionResult> {
   console.log(`Starting workflow with node: ${node.id}`);
 

@@ -3,6 +3,7 @@ import { HttpNodeExecutionResult } from "../types";
 
 export async function executeHttpNode(
   node: NodeInterface,
+  context: Record<string, any>,
 ): Promise<HttpNodeExecutionResult> {
   const { method, url, headers = {}, body } = node.parameters;
 
