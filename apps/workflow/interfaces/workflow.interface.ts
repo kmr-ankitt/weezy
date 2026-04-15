@@ -1,7 +1,7 @@
 export type NodeInterface = {
   id: string;
   type: string;
-  parameters: Record<string, string>;
+  parameters: Record<string, any>;
 };
 
 export type IConnection = {
