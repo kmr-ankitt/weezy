@@ -1,11 +1,19 @@
-import { executeHttpNode } from "./action";
-import { executeLogNode, executeStartNode } from "./core";
+import {
+  executeLogNode,
+  executeStartNode,
+  executeDelayNode,
+  executeConditionNode,
+  executeSwitchNode,
+} from "./core";
 import { NodeExecutor } from "./types";
 
 export const nodeRegistry: Record<string, NodeExecutor> = {
   startNode: executeStartNode,
   http: executeHttpNode,
   log: executeLogNode,
+  delay: executeDelayNode,
+  condition: executeConditionNode,
+  switch: executeSwitchNode,
 };
 
 export function getNodeExecutor(type: string): NodeExecutor {
