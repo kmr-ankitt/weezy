@@ -1,5 +1,14 @@
 import { NodeInterface } from "@weezy/workflow";
 
+/**
+Discord Node
+
+payload:
+  webhookUrl: string,
+  content?: string,
+  username?: string,
+  avatarUrl?: string,
+**/
 export async function executeDiscordNode(
   node: NodeInterface,
   _context: Record<string, any>,
