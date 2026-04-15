@@ -8,12 +8,15 @@ import { ExecutionContext } from "./types";
  * Performs topological sort as a batch instead of a single node to allow for parallel execution of independent nodes.
  * @param workflow - The workflow to be executed, containing nodes and connections.
  **/
-export async function executeWorkflow(workflow: Workflow) {
+export async function executeWorkflow(
+  workflow: Workflow,
+  initialContext: ExecutionContext = {},
+) {
   const { nodes, connections } = workflow;
   const { inDegree, adj, nodeMap } = buildGraph(nodes, connections);
 
   const queue: string[] = [];
-  let context: ExecutionContext = {};
+  let context: ExecutionContext = { ...initialContext };
 
   for (const [nodeId, deg] of inDegree) {
     if (deg === 0) {
