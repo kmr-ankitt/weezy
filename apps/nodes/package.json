@@ -5,14 +5,18 @@
   "main": "index.ts",
   "scripts": {
     "dev": "tsx index.ts",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "vitest run"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@weezy/workflow": "workspace:*",
+    "@vitest/coverage-v8": "^4.1.4",
     "@weezy/eslint-config": "workspace:*",
-    "tsx": "^4.20.6"
+    "@weezy/workflow": "workspace:*",
+    "msw": "^2.13.3",
+    "tsx": "^4.20.6",
+    "vitest": "^4.1.4"
   }
 }
