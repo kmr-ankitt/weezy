@@ -1,3 +1,4 @@
+import { executeHttpNode, executeDiscordNode } from "./action";
 import {
   executeLogNode,
   executeStartNode,
@@ -14,6 +15,7 @@ export const nodeRegistry: Record<string, NodeExecutor> = {
   delay: executeDelayNode,
   condition: executeConditionNode,
   switch: executeSwitchNode,
+  discord: executeDiscordNode,
 };
 
 export function getNodeExecutor(type: string): NodeExecutor {
