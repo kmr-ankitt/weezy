@@ -29,6 +29,7 @@ export const nodeRegistry: Record<string, NodeExecutor> = {
   discord: executeDiscordNode,
   telegram: executeTelegramNode,
   notion: executeNotionNode,
+  openai: executeOpenAINode,
 };
 
 export function getNodeExecutor(type: string): NodeExecutor {
