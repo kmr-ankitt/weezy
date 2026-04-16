@@ -12,13 +12,16 @@ Parameters:
 **/
 export async function executeTelegramNode(
   node: NodeInterface,
-  _context: Record<string, any>,
+  _context: Record<string, unknown>,
 ) {
   const { botToken, chatId, text, parseMode = "Markdown" } = node.parameters;
 
   if (!botToken || !chatId || !text) {
     throw new Error("Telegram node requires botToken, chatId, and text.");
   }
+
+  const isTruncated = String(text).length > 4096;
+  const safeText = String(text).slice(0, 4096);
 
   const res = await fetch(
     `https://api.telegram.org/bot${botToken}/sendMessage`,
@@ -27,8 +30,9 @@ export async function executeTelegramNode(
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         chat_id: chatId,
-        text: text,
-        parse_mode: parseMode,
+        text: safeText,
+        // Disable parse_mode if we truncated to avoid cutting tags mid-way
+        parse_mode: isTruncated ? undefined : parseMode,
       }),
     },
   );

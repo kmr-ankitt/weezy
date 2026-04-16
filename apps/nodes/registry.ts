@@ -30,6 +30,9 @@ export const nodeRegistry: Record<string, NodeExecutor> = {
   telegram: executeTelegramNode,
   notion: executeNotionNode,
   openai: executeOpenAINode,
+  // --- Compatibility Aliases ---
+  trigger: executeStartNode,
+  logic: executeConditionNode,
 };
 
 export function getNodeExecutor(type: string): NodeExecutor {
