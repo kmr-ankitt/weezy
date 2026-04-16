@@ -15,7 +15,7 @@ export async function executeWorkflow(
   workflow: Workflow,
   initialContext: ExecutionContext = {},
   db?: PrismaClient,
-) {
+): Promise<ExecutionContext> {
   const { nodes, connections } = workflow;
   const { inDegree, adj, nodeMap } = buildGraph(nodes, connections);
 
@@ -119,8 +119,11 @@ export async function executeWorkflow(
     }
 
     console.log("Final context: ", context);
+    return context;
   } catch (error: any) {
     workflow.setStatus("failed");
+
+    const errorContext = { error: error.message, context };
 
     if (db && executionId) {
       await db.execution.update({
@@ -128,11 +131,11 @@ export async function executeWorkflow(
         data: {
           status: "failed",
           endedAt: new Date(),
-          result: { error: error.message, context } as any,
+          result: errorContext as any,
         },
       });
     }
 
-    throw error;
+    return errorContext;
   }
 }
