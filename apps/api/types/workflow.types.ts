@@ -9,6 +9,7 @@ export type WorkflowType = {
   definition: JsonValue;
   createdAt: Date;
   updatedAt: Date;
+  executions?: any[];
 };
 
 export type NewWorkflowInput = {
