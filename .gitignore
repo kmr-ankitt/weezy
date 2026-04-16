@@ -41,3 +41,4 @@ yarn-error.log*
 ROADMAP.md
 /apps/core/test-run.ts
 /apps/core/verify-expressions.ts
+verify-api.ts
