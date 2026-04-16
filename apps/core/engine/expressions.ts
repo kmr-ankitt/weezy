@@ -33,12 +33,14 @@ function evaluateExpression(
   expression: string,
   context: ExecutionContext,
 ): string {
-  // Regex to match $node["node-id"].data or $node['node-id'].data
-  const nodeMatch = expression.match(/\$node\[["'](.*?)["']\]\.data(.*)/);
+  console.log(`DEBUG: Evaluating expression: "${expression}"`);
+  // Regex to match $node["node-id"] and any subsequent path
+  const nodeMatch = expression.match(/\$node\[["'](.*?)["']\](.*)/);
 
   if (nodeMatch) {
     const nodeId = nodeMatch[1];
     const path = nodeMatch[2]; // e.g., ".some.field"
+    console.log(`DEBUG: Matched nodeId: ${nodeId}, path: ${path}`);
 
     const nodeData = context[nodeId];
 
@@ -55,6 +57,7 @@ function evaluateExpression(
     // Handle nested path access if any
     try {
       const value = getNestedValue(nodeData, path.split(".").filter(Boolean));
+      console.log(`🔍 Resolved "${expression}" to:`, value);
       return typeof value === "object" ? JSON.stringify(value) : String(value);
     } catch (e) {
       return `[Error: Path ${path} not found in node ${nodeId}]`;
