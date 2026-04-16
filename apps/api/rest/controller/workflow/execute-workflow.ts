@@ -1,6 +1,5 @@
 import { prisma } from "@weezy/prisma";
-import { Workflow } from "@weezy/workflow";
-import { executeWorkflow } from "@weezy/core";
+import { workflowQueue } from "@weezy/core";
 import { Request, Response } from "express";
 
 export default async function executeWorkflowController(
@@ -19,27 +18,29 @@ export default async function executeWorkflowController(
       return res.status(404).json({ error: "Workflow not found" });
     }
 
-    const definition = workflowData.definition as any;
-
-    const workflow = new Workflow({
-      id: workflowData.id,
-      name: workflowData.name,
-      nodes: definition.nodes || [],
-      connections: definition.connections || [],
-      settings: definition.settings || { active: true },
+    // Create an execution record in 'pending' state
+    const execution = await prisma.execution.create({
+      data: {
+        workflowId: workflowData.id,
+        status: "pending",
+      },
     });
 
-    // Execute workflow using the core engine
-    // Pass the prisma client for execution tracking
-    const result = await executeWorkflow(workflow, context, prisma);
+    // Add job to BullMQ queue
+    await workflowQueue.add(`execution-${execution.id}`, {
+      workflowId: workflowData.id,
+      executionId: execution.id,
+      context,
+    });
 
-    res.status(200).json({
+    res.status(202).json({
       success: true,
-      status: workflow.status,
-      result,
+      executionId: execution.id,
+      status: "queued",
+      message: "Workflow execution has been queued",
     });
   } catch (error: any) {
-    console.error("Workflow execution failed:", error);
+    console.error("Failed to queue workflow:", error);
     res.status(500).json({
       success: false,
       error: error.message,

@@ -20,7 +20,11 @@ The **Weezy REST API** provides an Express-based interface for managing and exec
     "name": "My New Workflow",
     "definition": {
       "nodes": [
-        { "id": "n1", "type": "log", "parameters": { "message": "Starting workflow" } }
+        {
+          "id": "n1",
+          "type": "log",
+          "parameters": { "message": "Starting workflow" }
+        }
       ],
       "connections": [],
       "settings": { "active": true }
@@ -78,24 +82,27 @@ Since workflow execution is now asynchronous (processed via Redis), you should f
    - If `status` is `success` or `failed`, stop polling and process the `result`.
 
 **Example (Javascript)**:
+
 ```javascript
 async function executeAndPoll(workflowId) {
   // 1. Trigger
-  const triggerRes = await fetch(`/workflows/${workflowId}/execute`, { method: 'POST' });
+  const triggerRes = await fetch(`/workflows/${workflowId}/execute`, {
+    method: "POST",
+  });
   const { executionId } = await triggerRes.json();
 
   // 2. Poll
   while (true) {
     const pollRes = await fetch(`/workflows/executions/${executionId}`);
     const { data } = await pollRes.json();
-    
-    if (data.status === 'success' || data.status === 'failed') {
-      console.log('Final Result:', data.result);
+
+    if (data.status === "success" || data.status === "failed") {
+      console.log("Final Result:", data.result);
       return data;
     }
-    
+
     // Wait for 1 second before next poll
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
   }
 }
 ```

@@ -10,11 +10,13 @@ import { PrismaClient } from "@weezy/prisma";
  * @param workflow - The workflow to be executed, containing nodes and connections.
  * @param initialContext - The context to start with.
  * @param db - Optional PrismaClient for execution tracking.
+ * @param existingExecutionId - Optional ID of an existing execution to resume.
  **/
 export async function executeWorkflow(
   workflow: Workflow,
   initialContext: ExecutionContext = {},
   db?: PrismaClient,
+  existingExecutionId?: string,
 ): Promise<ExecutionContext> {
   const { nodes, connections } = workflow;
   const { inDegree, adj, nodeMap } = buildGraph(nodes, connections);
@@ -30,8 +32,8 @@ export async function executeWorkflow(
 
   workflow.setStatus("running");
 
-  let executionId: string | undefined;
-  if (db) {
+  let executionId: string | undefined = existingExecutionId;
+  if (db && !executionId) {
     const execution = await db.execution.create({
       data: {
         workflowId: workflow.id,
@@ -40,6 +42,15 @@ export async function executeWorkflow(
       },
     });
     executionId = execution.id;
+  } else if (db && executionId) {
+    // If we have an existing ID, just update its status to running
+    await db.execution.update({
+      where: { id: executionId },
+      data: {
+        status: "running",
+        startedAt: new Date(),
+      },
+    });
   }
 
   let processedCount = 0;

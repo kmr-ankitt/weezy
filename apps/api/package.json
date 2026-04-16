@@ -26,12 +26,14 @@
     "@weezy/core": "workspace:^",
     "@weezy/prisma": "workspace:*",
     "@weezy/workflow": "workspace:^",
+    "bullmq": "^5.74.1",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "graphql": "^16.11.0",
     "graphql-http": "^1.22.4",
     "graphql-scalars": "^1.25.0",
+    "ioredis": "^5.10.1",
     "ruru": "2.0.0-beta.30"
   }
 }
