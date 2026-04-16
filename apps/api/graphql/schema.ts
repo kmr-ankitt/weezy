@@ -7,6 +7,42 @@ const schema = buildSchema(`
   type Query {
     workflow: [Workflow]!
     workflowById(id: String!): WorkflowByIdResult!
+    executions(workflowId: String!): [Execution]!
+    executionById(id: String!): ExecutionByIdResult!
+  }
+
+  enum ExecutionStatus {
+    pending
+    running
+    success
+    failed
+  }
+
+  type Execution {
+    id: String!
+    workflowId: String!
+    status: ExecutionStatus!
+    startedAt: Date
+    endedAt: Date
+    result: JSON
+    executionNodes: [ExecutionNode]
+  }
+
+  type ExecutionNode {
+    id: String!
+    executionId: String!
+    nodeId: String!
+    status: String!
+    input: JSON
+    output: JSON
+    error: String
+    createdAt: Date!
+  }
+
+  type ExecutionByIdResult {
+    success: Boolean!
+    execution: Execution
+    error: String
   }
 
   type Mutation{
@@ -21,6 +57,7 @@ const schema = buildSchema(`
     definition: JSON
     createdAt: Date!
     updatedAt: Date!
+    executions: [Execution]
   }
 
   input CreateWorkflowInput {

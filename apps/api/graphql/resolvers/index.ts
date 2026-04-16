@@ -12,6 +12,8 @@ import deleteWorkflow from "./workflow/delete-workflow";
 import getWorkflow from "./workflow/get-workflow";
 import getWorkflowById from "./workflow/get-workflow-by-id";
 import updateWorkflow from "./workflow/update-workflow";
+import getExecutions from "./workflow/get-executions";
+import getExecutionByIdDetailed from "./workflow/get-execution-by-id-detailed";
 
 export const rootResolver = {
   workflow: async (): Promise<WorkflowType[]> => {
@@ -50,5 +52,17 @@ export const rootResolver = {
   }): Promise<GetWorkflowByIdResult> => {
     const workflow = await getWorkflowById(id);
     return workflow;
+  },
+
+  executions: async ({
+    workflowId,
+  }: {
+    workflowId: string;
+  }): Promise<any[]> => {
+    return await getExecutions(workflowId);
+  },
+
+  executionById: async ({ id }: { id: string }): Promise<any> => {
+    return await getExecutionByIdDetailed(id);
   },
 };
