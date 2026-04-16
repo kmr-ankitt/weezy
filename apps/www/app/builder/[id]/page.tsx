@@ -63,7 +63,12 @@ interface GqlPayload<T> {
 interface WorkflowData {
   id: string;
   name: string;
-  definition: unknown;
+  definition: {
+    visual?: {
+      nodes: Node[];
+      edges: Edge[];
+    };
+  };
 }
 
 export default function BuilderPage({
