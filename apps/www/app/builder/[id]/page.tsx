@@ -10,6 +10,7 @@ import {
   Share2,
   Loader2,
   CheckCircle2,
+  Check,
 } from "lucide-react";
 import Link from "next/link";
 import { Node, Edge } from "@xyflow/react";
@@ -94,6 +95,7 @@ export default function BuilderPage({
   const [isSaving, setIsSaving] = useState(false);
   const [isLoading, setIsLoading] = useState(id !== "new");
   const [workflowName, setWorkflowName] = useState("Untitled Workflow");
+  const [isShared, setIsShared] = useState(false);
   const [activeExecutionId, setActiveExecutionId] = useState<string | null>(
     null,
   );
@@ -182,6 +184,14 @@ export default function BuilderPage({
     }
   };
 
+  const handleShare = () => {
+    if (typeof window !== "undefined") {
+      navigator.clipboard.writeText(window.location.href);
+      setIsShared(true);
+      setTimeout(() => setIsShared(false), 2000);
+    }
+  };
+
   const handleExecute = async () => {
     if (id === "new") {
       alert("Please save the workflow before executing.");
@@ -227,9 +237,20 @@ export default function BuilderPage({
         </div>
 
         <div className="flex items-center gap-2">
-          <button className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium text-zinc-400 hover:bg-zinc-900 hover:text-white transition-colors">
-            <Share2 className="h-4 w-4" />
-            Share
+          <button
+            onClick={handleShare}
+            className={`flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
+              isShared
+                ? "bg-violet-500/10 text-violet-400 border border-violet-500/50"
+                : "text-zinc-400 hover:bg-zinc-900 hover:text-white"
+            }`}
+          >
+            {isShared ? (
+              <Check className="h-4 w-4" />
+            ) : (
+              <Share2 className="h-4 w-4" />
+            )}
+            {isShared ? "Copied!" : "Share"}
           </button>
           <div className="h-6 w-px bg-zinc-800 mx-1" />
           <button

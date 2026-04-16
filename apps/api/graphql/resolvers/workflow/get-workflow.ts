@@ -4,6 +4,7 @@ import { WorkflowType } from "../../../types/workflow.types";
 export default async function getWorkflow(): Promise<WorkflowType[]> {
   try {
     const workflow = await prisma.workflow.findMany({
+      orderBy: { updatedAt: "desc" },
       include: {
         executions: {
           orderBy: { startedAt: "desc" },
