@@ -31,7 +31,7 @@ export class Workflow {
     this.nodes = param.nodes;
     this.connections = param.connections;
     this.settings = param.settings;
-    this.status = "new";
+    this.status = "pending";
   }
 
   setName(name: string) {
