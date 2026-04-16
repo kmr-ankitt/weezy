@@ -1,5 +1,6 @@
 import { NodeInterface } from "@weezy/workflow";
 import { getNodeExecutor } from "@weezy/nodes";
+import { resolveExpressions } from "./expressions";
 import { ExecutionContext } from "./types";
 
 export async function executeNode(
@@ -12,7 +13,12 @@ export async function executeNode(
 }> {
   try {
     const executor = getNodeExecutor(node.type);
-    const res = await executor(node, context);
+
+    // Resolve expressions in node parameters
+    const resolvedParameters = resolveExpressions(node.parameters, context);
+    const resolvedNode = { ...node, parameters: resolvedParameters };
+
+    const res = await executor(resolvedNode, context);
 
     console.log(`Node ${node.id} (${node.type}) completed`);
     return { status: "success", data: res };

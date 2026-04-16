@@ -40,3 +40,4 @@ yarn-error.log*
 .vscode/
 ROADMAP.md
 /apps/core/test-run.ts
+/apps/core/verify-expressions.ts

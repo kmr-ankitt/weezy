@@ -5,7 +5,9 @@ export async function executeLogNode(
   context: Record<string, any>,
 ) {
   const level = node.parameters.level || "info";
-  console.log(`📝 LOG [${level.toUpperCase()}]: Node ${node.id} executed`);
+  console.log(
+    `📝 LOG [${level.toUpperCase()}]: ${node.parameters.message || `Node ${node.id} executed`}`,
+  );
 
   return {
     id: node.id,

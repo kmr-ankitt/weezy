@@ -6,14 +6,17 @@
   "scripts": {
     "dev": "tsx index.ts",
     "lint": "eslint . ",
-    "test:workflow" : "tsx test-run.ts"
+    "test:workflow": "tsx test-run.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@weezy/workflow": "workspace:*",
     "@weezy/nodes": "workspace:*",
+    "@weezy/workflow": "workspace:*",
     "tsx": "^4.20.6"
+  },
+  "dependencies": {
+    "@weezy/prisma": "workspace:^"
   }
 }
