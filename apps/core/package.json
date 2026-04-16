@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "tsx index.ts",
     "lint": "eslint . ",
-    "test:workflow": "tsx test-run.ts"
+    "test:workflow": "tsx test-run.ts",
+    "worker": "tsx worker.ts"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +18,8 @@
     "tsx": "^4.20.6"
   },
   "dependencies": {
-    "@weezy/prisma": "workspace:^"
+    "@weezy/prisma": "workspace:^",
+    "bullmq": "^5.74.1",
+    "ioredis": "^5.10.1"
   }
 }
