@@ -10,8 +10,8 @@ setTimeout(() => {
     .then(() => {
       console.log("Connected to the database successfully.");
     })
-    .catch((error) => {
+    .catch((error: any) => {
       console.error("Error connecting to the database:", error);
     });
 }, 5000);
-export { prisma } from "./client";
+export { prisma, PrismaClient } from "./client";
