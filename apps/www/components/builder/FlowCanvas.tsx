@@ -34,9 +34,16 @@ import {
   Clock,
 } from "lucide-react";
 import { NodeProperties } from "./NodeProperties";
+import { LucideProps } from "lucide-react";
+
+export interface WeezyNodeData extends Record<string, unknown> {
+  label: string;
+  type: string;
+  color?: string;
+}
 
 // Icon mapping to handle serialized data
-const ICON_MAP: Record<string, React.ComponentType<unknown>> = {
+const ICON_MAP: Record<string, React.ElementType<LucideProps>> = {
   startNode: Play,
   cron: Clock,
   http: Database,
@@ -53,10 +60,10 @@ const WeezyNode = ({
   data,
   selected,
 }: {
-  data: Record<string, unknown>;
+  data: WeezyNodeData;
   selected: boolean;
 }) => {
-  const Icon = ICON_MAP[data.type] || Activity;
+  const Icon = (ICON_MAP[data.type] || Activity) as React.ElementType;
 
   return (
     <div
@@ -72,7 +79,7 @@ const WeezyNode = ({
       />
       <div className="flex items-center gap-3">
         <div
-          className={`flex h-10 w-10 items-center justify-center rounded-lg ${data.color || "bg-zinc-900 border-zinc-800"} border shadow-inner`}
+          className={`flex h-10 w-10 items-center justify-center rounded-lg ${(data.color as string) || "bg-zinc-900 border-zinc-800"} border shadow-inner`}
         >
           <Icon className="h-5 w-5 text-white" />
         </div>
@@ -105,9 +112,9 @@ export function FlowCanvas({
   setEdges,
 }: {
   workflowId: string;
-  nodes: Node[];
+  nodes: Node<WeezyNodeData>[];
   edges: Edge[];
-  setNodes: React.Dispatch<React.SetStateAction<Node[]>>;
+  setNodes: React.Dispatch<React.SetStateAction<Node<WeezyNodeData>[]>>;
   setEdges: React.Dispatch<React.SetStateAction<Edge[]>>;
 }) {
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
@@ -141,7 +148,9 @@ export function FlowCanvas({
   };
 
   const updateNode = (id: string, data: Record<string, unknown>) => {
-    setNodes((nds) => nds.map((n) => (n.id === id ? { ...n, data } : n)));
+    setNodes((nds) =>
+      nds.map((n) => (n.id === id ? { ...n, data: data as WeezyNodeData } : n)),
+    );
   };
 
   const deleteNode = (id: string) => {
@@ -153,14 +162,14 @@ export function FlowCanvas({
   const addNode = (
     type: string,
     label: string,
-    icon: React.ComponentType<unknown>,
+    icon: React.ElementType,
     color: string,
   ) => {
-    const newNode: Node = {
+    const newNode: Node<WeezyNodeData> = {
       id: nanoid(),
       type: "weezy",
       position: { x: 400, y: 200 },
-      data: { label, type, icon, color },
+      data: { label, type, color },
     };
     setNodes((nds) => nds.concat(newNode));
   };
