@@ -57,6 +57,11 @@ pnpm worker
 
 > The worker process must be running for workflow executions to be processed.
 
+## Preview
+
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/605dcd41-efed-403e-86d7-eb53c55bcdca" />
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/1ea2fbf7-270e-41dc-890f-ed0a4b99cbf1" />
+
 ## License
 
 [MIT](LICENSE)
