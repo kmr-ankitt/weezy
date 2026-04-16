@@ -34,7 +34,7 @@ export function Navbar() {
             <span className="hidden sm:inline">GitHub</span>
           </Link>
           <Link
-            href="#"
+            href="/dashboard"
             className="rounded-full bg-white px-4 py-1.5 text-sm font-semibold text-black transition-transform hover:scale-105"
           >
             Get Started

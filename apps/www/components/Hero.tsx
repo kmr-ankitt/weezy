@@ -52,7 +52,7 @@ export function Hero() {
           className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
         >
           <Link
-            href="#"
+            href="/dashboard"
             className="group flex h-12 items-center justify-center gap-2 rounded-xl bg-white px-8 font-semibold text-black transition-all hover:bg-zinc-200"
           >
             Start Building
